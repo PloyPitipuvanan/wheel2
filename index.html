@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>หมุนวงล้อ Emotions & Oils</title>
+  <style>
+    body {
+      background: #fdfdfd;
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 40px;
+    }
+    .wheel-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      margin: auto;
+      touch-action: none;
+    }
+    .wheel, .wheel-center {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .wheel {
+      border-radius: 50%;
+      cursor: grab;
+      transition: transform 0.1s linear;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .wheel-center {
+      pointer-events: none;
+    }
+    .pointer {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 25px solid red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>หมุนวงล้อด้วยนิ้วหรือเมาส์</h2>
+
+  <div class="wheel-container">
+    <div class="pointer"></div>
+    <img src="wheel.png" class="wheel" id="wheel" />
+    <img src="center.png" class="wheel-center" />
+  </div>
+
+  <script>
+    const wheel = document.getElementById('wheel');
+    let isDragging = false;
+    let startAngle = 0;
+    let currentRotation = 0;
+
+    function getAngle(e, rect) {
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left - rect.width / 2;
+      const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top - rect.height / 2;
+      return Math.atan2(y, x) * (180 / Math.PI);
+    }
+
+    function startDrag(e) {
+      isDragging = true;
+      const rect = wheel.getBoundingClientRect();
+      startAngle = getAngle(e, rect) - currentRotation;
+
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchmove', drag);
+      document.addEventListener('touchend', stopDrag);
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      const rect = wheel.getBoundingClientRect();
+      const angle = getAngle(e, rect);
+      currentRotation = angle - startAngle;
+      wheel.style.transform = `rotate(${currentRotation}deg)`;
+    }
+
+    function stopDrag() {
+      isDragging = false;
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+      document.removeEventListener('touchmove', drag);
+      document.removeEventListener('touchend', stopDrag);
+    }
+
+    wheel.addEventListener('mousedown', startDrag);
+    wheel.addEventListener('touchstart', startDrag);
+  </script>
+
+</body>
+</html>
