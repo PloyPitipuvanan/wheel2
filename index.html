@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Emotions Wheel (Inertia)</title>
+  <title>Emotions Wheel (Montserrat)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <style>
     body {
       background: #ffffff;
-      font-family: sans-serif;
+      font-family: 'Montserrat', sans-serif;
       text-align: center;
       padding-top: 20px;
     }
@@ -35,7 +36,6 @@
       cursor: grab;
       user-select: none;
       -webkit-user-drag: none;
-      transition: transform 0s;
     }
 
     .wheel-center {
@@ -110,11 +110,10 @@ function stopDrag() {
   document.removeEventListener('touchmove', drag);
   document.removeEventListener('touchend', stopDrag);
 
-  // เริ่มหมุนต่อด้วยแรงเฉื่อย
   const friction = 0.98;
   inertiaInterval = setInterval(() => {
     velocity *= friction;
-    currentRotation += velocity * 0.016; // 60fps ~ 16ms
+    currentRotation += velocity * 0.016;
     applyRotation(currentRotation);
     if (Math.abs(velocity) < 0.05) clearInterval(inertiaInterval);
   }, 16);
