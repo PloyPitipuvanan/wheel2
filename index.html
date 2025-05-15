@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Emotion By Scent</title>
+  <title>Emotions Wheel (Locked + Montserrat)</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <style>
     body {
@@ -11,12 +11,12 @@
       font-family: 'Montserrat', sans-serif;
       text-align: center;
       padding-top: 20px;
-      -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none;   /* Chrome/Safari/Opera */
-      -khtml-user-select: none;    /* Konqueror */
-      -moz-user-select: none;      /* Firefox */
-      -ms-user-select: none;       /* IE/Edge */
-      user-select: none;           /* Non-prefixed version */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     .wheel-container {
@@ -35,7 +35,6 @@
       position: absolute;
       top: 0;
       left: 0;
-      pointer-events: none; /* prevent long-press popup on mobile */
     }
 
     .wheel {
@@ -43,10 +42,11 @@
       cursor: grab;
       user-select: none;
       -webkit-user-drag: none;
+      pointer-events: auto; /* แก้ตรงนี้เพื่อให้หมุนได้ */
     }
 
     .wheel-center {
-      pointer-events: none;
+      pointer-events: none; /* ล็อกไม่ให้เซฟรูป */
     }
 
     h2 {
